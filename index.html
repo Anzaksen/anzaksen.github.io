@@ -1,275 +1,658 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <title>Anzaksen Portfolio</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="HTML5 website template">
-  <meta name="keywords" content="global, template, html, sass, jquery">
-  <meta name="author" content="Bucky Maler">
-  <link rel="stylesheet" href="assets/css/main.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dape Alexander Naanret – Data Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root, [data-theme="light"] {
+    --teal: #6d8d8c;
+    --teal-light: #e0eceb;
+    --teal-dark: #3e5f5e;
+    --ink: #1a1a1a;
+    --muted: #555;
+    --faint: #888;
+    --bg: #fafaf8;
+    --surface: #ffffff;
+    --border: #e2e0d8;
+    --radius: 12px;
+    --nav-bg: rgba(250,250,248,0.92);
+    --skills-bg: #ffffff;
+    --placeholder-start: #e0eceb;
+    --placeholder-end: #d4e6e5;
+    --card-hover-shadow: rgba(109,141,140,0.12);
+  }
+
+  [data-theme="dark"] {
+    --teal: #7aaaa9;
+    --teal-light: #1e3535;
+    --teal-dark: #9dc5c4;
+    --ink: #e8e6df;
+    --muted: #9a9890;
+    --faint: #666;
+    --bg: #0f1110;
+    --surface: #181c1b;
+    --border: #2a2e2d;
+    --radius: 12px;
+    --nav-bg: rgba(15,17,16,0.92);
+    --skills-bg: #141817;
+    --placeholder-start: #1e3535;
+    --placeholder-end: #162828;
+    --card-hover-shadow: rgba(122,170,169,0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--teal-dark);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  /* SECTIONS */
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  /* HERO */
+  #hero {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero-photo {
+    position: relative;
+  }
+
+  .hero-photo img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 18px;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 3/4;
+    border: 2px solid var(--teal-light);
+  }
+
+  .hero-photo-placeholder {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--placeholder-start) 0%, var(--placeholder-end) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--teal-light);
+  }
+
+  .hero-photo-placeholder svg {
+    width: 72px;
+    height: 72px;
+    opacity: 0.4;
+  }
+
+  .hero-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .hero-text p {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal);
+    color: white;
+    padding: 11px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-divider {
+    width: 48px;
+    height: 3px;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+
+  /* PROJECTS */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 4px 20px var(--card-hover-shadow);
+  }
+
+  .project-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--teal-dark);
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    letter-spacing: 0.02em;
+  }
+
+  .project-title:hover { color: var(--teal); }
+
+  .project-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--teal-dark);
+    background: var(--teal-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    margin-right: 4px;
+  }
+
+  .project-card ul {
+    padding-left: 1.2rem;
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  .project-card p.proj-desc {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  .project-card li + li { margin-top: 4px; }
+
+  .ext-link {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.75rem;
+    color: var(--faint);
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .ext-link:hover { color: var(--teal); }
+
+  /* SKILLS */
+  #skills {
+    background: var(--skills-bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    max-width: 100%;
+    padding: 5rem 2rem;
+  }
+
+  .skills-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .skill-group {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .skill-group h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  /* PERSONALITY */
+  .personality-text {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 640px;
+    font-weight: 300;
+  }
+
+  .personality-text strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  #contact {
+    padding-bottom: 6rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--teal-dark);
+    transition: all 0.2s;
+    background: var(--surface);
+  }
+
+  .contact-link:hover {
+    border-color: var(--teal);
+    background: var(--teal-light);
+    transform: translateY(-1px);
+  }
+
+  .contact-link svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 13px;
+    color: var(--faint);
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    #hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero-photo { display: flex; justify-content: center; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 3.5rem 1.25rem; }
+  }
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .theme-toggle:hover { border-color: var(--teal); color: var(--teal); }
+</style>
 </head>
 <body>
 
-<div class="device-notification">
-  <a class="device-notification--logo" href="#0">
-    <img src="assets/img/logo.png" alt="Global">
-    <p>Global</p>
-  </a>
-  <p class="device-notification--message">I created this website contact me here: edante12345678@gmail.com.</p>
-</div>
+<nav>
+  <span class="nav-logo">+Sën.py</span>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <span id="themeIcon">☀</span> <span id="themeLabel">light</span>
+  </button>
+</nav>
 
-<div class="perspective effect-rotate-left">
-  <div class="container"><div class="outer-nav--return"></div>
-    <div id="viewport" class="l-viewport">
-      <div class="l-wrapper">
-        <nav class="l-side-nav">
-          <ul class="side-nav">
-            <li class="is-active"><span>Home</span></li>
-            <li><span>Works</span></li>
-            <li><span>About</span></li>
-            <li><span>Contact</span></li>
-          </ul>
-        </nav>
-        <ul class="l-main-content main-content">
-          <li class="l-section section section--is-active">
-            <div class="intro">
-              <div class="intro--banner">
-                <h1>I will <br>provide<br>your data analytics services.</h1>
-                <div class="porn">
-              <img src="assets/img/photo12.png" alt="Welcome">
-                </div>
-              </div>
-              <div class="intro--options">
-                  <h3>Dape Alexander Naanret</h3>
-                  <p>I am a data Analyst that is interested in digging through data and uncovering meaningful insights.</p>
-           
-              </div>
-            </div>
-          </li>
-          <li class="l-section section">
-            <div class="work">
-              <h2>Projects</h2>
-              <div class="work--lockup">
-                <ul class="slider">
-                  <li class="slider--item slider--item-left">
-                    <a href="https://github.com/Anzaksen/Analysis_on_Rhode_Island_Police_Data_on_Drivers " target="_blank" rel="noreferrer noopener">
-                      <div class="slider--item-image">
-                        <img src="assets/img/policing_project.jpg" alt="Rhode_island">
-                      </div>
-                      <p class="slider--item-title">Rhode Island open policing</p>
-                      <p class="slider--item-description">EDA on open policing data on police stops in Rhode Island from 2005 to 2015.</p>
-                    </a>
-                  </li>
-                  <li class="slider--item slider--item-center">
-                    <a href="https://github.com/Anzaksen/Ky_louisville_Police_Driver_Data_Analysis" target="_blank" rel="noreferrer noopener">
-                      <div class="slider--item-image">
-                        <img src="assets/img/policing_project.jpg" alt="Kentucky">
-                      </div>
-                      <p class="slider--item-title">Kentucky open policing</p>
-                      <p class="slider--item-description">EDA on open policing data on police stops in Kentucky, Louisville from 2015 to 2018</p>
-                    </a>
-                  </li>
-                  <li class="slider--item slider--item-right">
-                    <a href="https://github.com/Anzaksen/Suicide_rates_1985_to_2016" target="_blank" rel="noreferrer noopener">
-                      <div class="slider--item-image">
-                        <img src="assets/img/suicide_project.jpg" alt="Suicide_rate">
-                      </div>
-                      <p class="slider--item-title">Suicside rates</p>
-                      <p class="slider--item-description">Time series analysis of suicide cases from 1985 to 2016.</p>
-                    </a>
-                  </li>
-                  <li class="slider--item slider--item-right">
-                    <a href="https://github.com/Anzaksen/world_population" target="_blank" rel="noreferrer noopener">
-                      <div class="slider--item-image">
-                        <img src="assets/img/andrew-neel.jpg" alt="world_population">
-                      </div>
-                      <p class="slider--item-title">World population</p>
-                      <p class="slider--item-description">A dashboard showing the world population trend from 2022 to 1970.</p>
-                    </a>
-                  </li>
-                </ul>
-                <div class="slider--prev">
-                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                  viewBox="0 0 150 118" style="enable-background:new 0 0 150 118;" xml:space="preserve">
-                  <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
-                    <path d="M561,1169C525,1155,10,640,3,612c-3-13,1-36,8-52c8-15,134-145,281-289C527,41,562,10,590,10c22,0,41,9,61,29
-                    c55,55,49,64-163,278L296,510h575c564,0,576,0,597,20c46,43,37,109-18,137c-19,10-159,13-590,13l-565,1l182,180
-                    c101,99,187,188,193,199c16,30,12,57-12,84C631,1174,595,1183,561,1169z"/>
-                  </g>
-                  </svg>
-                </div>
-                <div class="slider--next">
-                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 118" style="enable-background:new 0 0 150 118;" xml:space="preserve">
-                  <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
-                    <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282c30,51,23,60-219,304C947,1180,926,1196,870,1167z"/>
-                  </g>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="l-section section">
-            <div class="about">
-              <div class="about--banner">
-                
-                <p><h2>About<br>Dape Alexander Naanret<br></h2>
-                  
-                  <h4>My Personality:</h4>
-                  
-                  I am a kind, compassionate, and honest person.
-                  
-                  I am a team player and I am always willing to help others. I believe that we can achieve more when we work together. I am also a good listener and I am always willing to hear other people's ideas.
-                  
-                  <h4>My Work Ethic:</h4>
-                  
-                  I am a hard worker and I am always willing to go the extra mile to get the job done.
-                  
-                  I am a hard worker, and also a highly motivated and results-oriented individual.
-                  
-                  I am eager to learn more about your company and the role that I can play in its success. I am confident that I can be a valuable asset to your team.</p>
-                <!--
-                  <h2>We<br>believe in<br>passionate<br>people</h2><a href="#0">Career
-                  <span>
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 118" style="enable-background:new 0 0 150 118;" xml:space="preserve">
-                    <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
-                      <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282c30,51,23,60-219,304C947,1180,926,1196,870,1167z"/>
-                    </g>
-                    </svg>
-                  </span>
-                </a>
-                <img src="assets/img/about-visual.png" alt="About Us">
-              </div>
-              <div class="about--options">
-                <a href="#0">
-                  <h3>Winners</h3>
-                </a>
-                <a href="#0">
-                  <h3>Philosophy</h3>
-                </a>
-                <a href="#0">
-                  <h3>History</h3>
-                </a>
-              </div>
-            </div>-->
-          </li>
-          <li class="l-section section">
-            <div class="contact">
-              <div class="contact--lockup">
-                <div class="modal">
-                  <div class="modal--information">
-                    <a href="mailto:dapealexander@gmail.com">dapealexander@gmail.com</a>
-                    <a href="tel:+2347057906294">+234 705 790 6294</a>
-                  </div>
-                  <ul class="modal--options">
-                    <li><a href="https://www.linkedin.com/in/alexanderdape" target="_blank" rel="noreferrer noopener"><img src="assets/img/linkedin.png" alt="welcome"></a></li>
-                    <li><a href="https://github.com/anzaksen" target="_blank" rel="noreferrer noopener"><img src="assets/img/github.png" alt="welcome"></a></li>
-                    <li><a href="https://twitter.com/DAPE_AN" target="_blank" rel="noreferrer noopener"><img src="assets/img/twitter.png" alt="welcome"></a></li>
-                    <li><a href="mailto:dapealexander@gmail.com">Contact Me</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="l-section section">
-            <div class="hire">
-              <h2>You want us to do</h2>
-              <form class="work-request">
-                <div class="work-request--options">
-                  <span class="options-a">
-                    <input id="opt-1" type="checkbox" value="app design">
-                    <label for="opt-1">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      App Design
-                    </label>
-                    <input id="opt-2" type="checkbox" value="graphic design">
-                    <label for="opt-2">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Graphic Design
-                    </label>
-                    <input id="opt-3" type="checkbox" value="motion design">
-                    <label for="opt-3">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Motion Design
-                    </label>
-                  </span>
-                  <span class="options-b">
-                    <input id="opt-4" type="checkbox" value="ux design">
-                    <label for="opt-4">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      UX Design
-                    </label>
-                    <input id="opt-5" type="checkbox" value="webdesign">
-                    <label for="opt-5">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Webdesign
-                    </label>
-                    <input id="opt-6" type="checkbox" value="marketing">
-                    <label for="opt-6">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Marketing
-                    </label>
-                  </span>
-                </div>
-                <div class="work-request--information">
-                  <div class="information-name">
-                    <input id="name" type="text" spellcheck="false">
-                    <label for="name">Name</label>
-                  </div>
-                  <div class="information-email">
-                    <input id="email" type="email" spellcheck="false">
-                    <label for="email">Email</label>
-                  </div>
-                </div>
-                <input type="submit" value="Send Request">
-              </form>
-            </div>
-          </li>
-        </ul>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-photo">
+    <!-- Replace the placeholder below with your actual photo:
+         <img src="Photoroom-20250213_103621.png" alt="Dape Alexander"> -->
+    <div class="hero-photo-placeholder">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="28" r="16" fill="#6d8d8c"/>
+        <path d="M10 70c0-16.569 13.431-30 30-30s30 13.431 30 30" fill="#6d8d8c"/>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-text">
+    <h1>Dape Alexander Naanret</h1>
+    <p>A Data Analyst interested in digging through data and uncovering meaningful insights.</p>
+    <a href="Alexander_Dape_CV.pdf" download="Dape_Alexander_CV.pdf" class="btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Resume
+    </a>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <h2>My Projects</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="projects-list">
+
+    <div class="project-card">
+      <a href="https://huggingface.co/spaces/Anzaksen/Hiv-response" target="_blank" class="ext-link" title="View project">↗</a>
+      <a href="https://huggingface.co/spaces/Anzaksen/Hiv-response" target="_blank" class="project-title">IISDAS</a>
+      <br><span class="project-tag">ML</span><span class="project-tag">LLM</span><span class="project-tag">Dashboard</span>
+      <ul>
+        <li>A Student Data Analytics system with a dashboard visualizing distributions within student results to identify patterns.</li>
+        <li>A result predictor — a CatBoost model trained to predict students' results based on external factors.</li>
+        <li>A Large Language Model fine-tuned with the results to help educators get answers in a chat-based, user-friendly manner.</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <span class="project-title">Supplier Relationship Management & Supply Chain Efficiency in Abuja</span>
+      <br><span class="project-tag">Statistics</span><span class="project-tag">Logistic Regression</span>
+      <ul>
+        <li>Analyzed the impact of trust-based relationships, information sharing, and supplier collaboration on supply chain efficiency of manufacturing firms in Abuja.</li>
+        <li>Used descriptive statistics and logistic regression to quantify the relationship between supplier practices and key performance metrics (cost, lead time, quality, flexibility).</li>
+        <li>Identified information sharing as the most significant driver of supply chain efficiency, outperforming trust and collaboration in predictive strength.</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <span class="project-title">Forecasting Electricity Prices in Germany Using Machine Learning</span>
+      <br><span class="project-tag">Time Series</span><span class="project-tag">XGBoost</span><span class="project-tag">Random Forest</span>
+      <ul>
+        <li>Conducted time-series analysis on historical electricity price data from the German market to build predictive models.</li>
+        <li>Implemented and evaluated four ML models: Linear Regression, Decision Tree, Random Forest, and XGBoost.</li>
+        <li>Assessed model performance using RMSE and MAE; identified the most accurate model for energy trading and consumption planning.</li>
+        <li>Provided insights on data-driven energy pricing strategies for dynamic electricity markets.</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <span class="project-title">CNN Architectures for Plant Disease Classification: A Comparative Study</span>
+      <br><span class="project-tag">Deep Learning</span><span class="project-tag">TFLite</span><span class="project-tag">Computer Vision</span>
+      <ul>
+        <li>Evaluated five CNN architectures (VGG16, DenseNet121, MobileNetV3, EfficientNetB0, NASNetMobile) on the PlantVillage dataset.</li>
+        <li>Trained models using fine-tuning and feature extraction at resolutions 128×128 and 160×160.</li>
+        <li>Applied post-training quantization via TensorFlow Lite to reduce model size for mobile/embedded deployment.</li>
+        <li>Identified DenseNet121 as the most balanced model post-quantization — high accuracy with reduced storage.</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <a href="https://huggingface.co/spaces/Anzaksen/breast_cancer_malignancy_detector" target="_blank" class="ext-link" title="View on HuggingFace">↗</a>
+      <a href="https://huggingface.co/spaces/Anzaksen/breast_cancer_malignancy_detector" target="_blank" class="project-title">Breast Cancer Malignancy Detector</a>
+      <br><span class="project-tag">Random Forest</span><span class="project-tag">HuggingFace</span>
+      <ul>
+        <li>Trained a Random Forest Classifier to detect whether a cancer is malignant or benign using clinical parameters.</li>
+        <li>Deployed the model on Hugging Face Spaces for public access.</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <a href="https://github.com/Anzaksen/world_population" target="_blank" class="ext-link" title="View on GitHub">↗</a>
+      <a href="https://github.com/Anzaksen/world_population" target="_blank" class="project-title">World Population Dashboard</a>
+      <br><span class="project-tag">EDA</span><span class="project-tag">Visualization</span>
+      <p class="proj-desc">A dashboard showing the world population trend from 1970 to 2022.</p>
+    </div>
+
+    <div class="project-card">
+      <a href="https://github.com/Anzaksen/Suicide_rates_1985_to_2016" target="_blank" class="ext-link" title="View on GitHub">↗</a>
+      <a href="https://github.com/Anzaksen/Suicide_rates_1985_to_2016" target="_blank" class="project-title">Suicide Rates Time Series Analysis</a>
+      <br><span class="project-tag">Time Series</span><span class="project-tag">EDA</span>
+      <p class="proj-desc">Time series analysis of reported suicide cases from 1985 to 2016.</p>
+    </div>
+
+    <div class="project-card">
+      <a href="https://github.com/Anzaksen/Ky_louisville_Police_Driver_Data_Analysis" target="_blank" class="ext-link" title="View on GitHub">↗</a>
+      <a href="https://github.com/Anzaksen/Ky_louisville_Police_Driver_Data_Analysis" target="_blank" class="project-title">Kentucky Open Policing EDA</a>
+      <br><span class="project-tag">EDA</span><span class="project-tag">Python</span>
+      <p class="proj-desc">Exploratory data analysis on open policing data covering police stops in Kentucky, Louisville from 2015 to 2018.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div id="skills">
+  <div class="skills-inner">
+    <div class="section-header">
+      <h2>My Skills</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Programming</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Visualization</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Seaborn</span>
+          <span class="skill-tag">Plotly</span>
+          <span class="skill-tag">Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Modeling</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">CatBoost</span>
+          <span class="skill-tag">XGBoost</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Deployment</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Hugging Face</span>
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">GitHub Pages</span>
+        </div>
       </div>
     </div>
   </div>
-  <ul class="outer-nav">
-    <li class="is-active">Home</li>
-    <li>Works</li>
-    <li>About</li>
-    <li>Contact</li>
-  </ul>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
-<script src="assets/js/functions-min.js"></script>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <h2>My Personality &amp; Work Ethic</h2>
+    <div class="section-divider"></div>
+  </div>
+  <p class="personality-text">
+    I am a <strong>hard worker</strong> and a highly motivated, results-oriented individual.
+    I'm eager to learn and grow alongside the teams and organizations I work with,
+    and I'm confident in my ability to contribute meaningfully — whether it's through
+    uncovering insights in data, building models that inform decisions, or communicating findings clearly to stakeholders.
+  </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <h2>Contact Me</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="contact-links">
+
+    <a href="https://www.linkedin.com/in/alexander-dape" target="_blank" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+
+    <a href="https://github.com/anzaksen" target="_blank" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      GitHub
+    </a>
+
+    <a href="https://twitter.com/anzaksen" target="_blank" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      Twitter / X
+    </a>
+
+    <a href="mailto:dapealexander@gmail.com" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  built with HTML · hosted on GitHub Pages · © 2025 Dape Alexander Naanret
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    if (theme === 'dark') { icon.textContent = '☀'; label.textContent = 'light'; }
+    else { icon.textContent = '☾'; label.textContent = 'dark'; }
+  }
+
+  const saved = localStorage.getItem('theme') || 'dark';
+  setTheme(saved);
+
+  btn.addEventListener('click', () => {
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+</script>
 </body>
 </html>
